@@ -208,6 +208,11 @@ define("simple-auth-oauth2/authenticators/oauth2",
         var _this = this;
         return new Ember.RSVP.Promise(function(resolve, reject) {
           var data = { grant_type: 'password', username: options.identification, password: options.password };
+
+          if (typeof options.force_login != "undefined") {
+            data.force_login = options.force_login;
+          }
+
           if (!Ember.isEmpty(options.scope)) {
             var scopesString = Ember.makeArray(options.scope).join(' ');
             Ember.merge(data, { scope: scopesString });
